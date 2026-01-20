@@ -18,7 +18,7 @@
   "editable": true,
   "fiscalYearStartMonth": 0,
   "graphTooltip": 1,
-  "id": 65,
+  "id": 13,
   "links": [],
   "panels": [
     {
@@ -207,9 +207,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (model_name, WorkerId) (rate(vllm:request_prompt_tokens_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by (model_name, engine) (rate(vllm:request_prompt_tokens_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "Prompt Tokens/Sec - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Prompt Tokens/Sec - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "range": true,
           "refId": "A"
@@ -220,9 +220,9 @@
           },
           "editorMode": "code",
           "exemplar": true,
-          "expr": "sum by (model_name, WorkerId) (rate(vllm:generation_tokens_total{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by (model_name, engine) (rate(vllm:generation_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "Generation Tokens/Sec - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Generation Tokens/Sec - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "range": true,
           "refId": "B"
@@ -416,9 +416,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum by(le, model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, engine) (rate(vllm:request_time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P99 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P99 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -427,9 +427,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by(le, model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, engine) (rate(vllm:request_time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P95 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P95 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -438,9 +438,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.9, sum by(le, model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.9, sum by(le, model_name, engine) (rate(vllm:request_time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P90 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P90 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -449,9 +449,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, sum by(le, model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, engine) (rate(vllm:request_time_per_output_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P50 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P50 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "D"
         },
@@ -460,9 +460,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by(model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, WorkerId) (rate(vllm:time_per_output_token_seconds_count{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "(sum by(model_name, engine) (rate(vllm:request_time_per_output_token_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, engine) (rate(vllm:request_time_per_output_token_seconds_count{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "Mean - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Mean - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "E"
         }
@@ -655,22 +655,11 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "vllm:gpu_cache_usage_perc{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }",
+          "expr": "vllm:kv_cache_usage_perc{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }",
           "interval": "",
-          "legendFormat": "GPU Cache Usage - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "KV Cache Usage - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
-        },
-        {
-          "datasource": {
-            "uid": "${datasource}"
-          },
-          "exemplar": true,
-          "expr": "vllm:cpu_cache_usage_perc{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }",
-          "interval": "",
-          "legendFormat": "CPU Cache Usage - {{model_name}} - {{WorkerId}}",
-          "queryType": "randomWalk",
-          "refId": "B"
         }
       ],
       "title": "vLLM: Cache Utilization",
@@ -861,9 +850,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by(model_name, WorkerId) (rate(vllm:time_to_first_token_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, WorkerId) (rate(vllm:time_to_first_token_seconds_count{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "(sum by(model_name, engine) (rate(vllm:time_to_first_token_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, engine) (rate(vllm:time_to_first_token_seconds_count{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "Average - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Average - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -872,9 +861,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, sum by(le, model_name, WorkerId)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, engine)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P50 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P50 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -883,9 +872,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.9, sum by(le, model_name, WorkerId)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.9, sum by(le, model_name, engine)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P90 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P90 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -894,9 +883,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by(le, model_name, WorkerId) (rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, engine) (rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P95 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P95 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "D"
         },
@@ -905,9 +894,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum by(le, model_name, WorkerId)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, engine)(rate(vllm:time_to_first_token_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P99 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P99 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "E"
         }
@@ -1100,9 +1089,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_count{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(model_name, engine) (rate(vllm:e2e_request_latency_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))\n/\nsum by(model_name, engine) (rate(vllm:e2e_request_latency_seconds_count{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "Average - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Average - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1111,9 +1100,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, sum by(le, model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, engine) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P50 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P50 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -1122,9 +1111,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.9, sum by(le, model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.9, sum by(le, model_name, engine) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P90 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P90 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -1133,9 +1122,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by(le, model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, engine) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P95 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P95 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "D"
         },
@@ -1144,9 +1133,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum by(le, model_name, WorkerId) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, engine) (rate(vllm:e2e_request_latency_seconds_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])))",
           "interval": "",
-          "legendFormat": "P99 - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "P99 - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "E"
         }
@@ -1339,9 +1328,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "vllm:num_requests_running{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }",
+          "expr": "vllm:num_requests_running{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }",
           "interval": "",
-          "legendFormat": "Num Running - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Num Running - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1350,9 +1339,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "vllm:num_requests_swapped{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }",
+          "expr": "vllm:num_requests_swapped{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }",
           "interval": "",
-          "legendFormat": "Num Swapped - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Num Swapped - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -1361,9 +1350,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "vllm:num_requests_waiting{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }",
+          "expr": "vllm:num_requests_waiting{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }",
           "interval": "",
-          "legendFormat": "Num Waiting - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Num Waiting - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "C"
         }
@@ -1445,7 +1434,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum by(le, model_name, WorkerId) (increase(vllm:request_prompt_tokens_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(le, model_name, engine) (increase(vllm:request_prompt_tokens_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "format": "heatmap",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1533,7 +1522,7 @@
           "datasource": {
             "uid": "${datasource}"
           },
-          "expr": "sum by(le, model_name, WorkerId) (increase(vllm:request_generation_tokens_bucket{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(le, model_name, engine) (increase(vllm:request_generation_tokens_bucket{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "format": "heatmap",
           "fullMetaSearch": false,
           "includeNullMetadata": true,
@@ -1635,9 +1624,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(finished_reason, model_name, WorkerId) (increase(vllm:request_success_total{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(finished_reason, model_name, engine) (increase(vllm:request_success_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "{{finished_reason}} - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "{{finished_reason}} - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -1733,9 +1722,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(model_name, WorkerId) (rate(vllm:request_queue_time_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(model_name, engine) (rate(vllm:request_queue_time_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "{{model_name}} - {{WorkerId}}",
+          "legendFormat": "{{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -1749,7 +1738,58 @@
       },
       "description": "",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -1760,18 +1800,29 @@
       },
       "id": 12,
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(model_name, WorkerId) (rate(vllm:request_decode_time_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(model_name, engine) (rate(vllm:request_decode_time_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "Decode - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Decode - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1780,9 +1831,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(model_name, WorkerId) (rate(vllm:request_prefill_time_seconds_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(model_name, engine) (rate(vllm:request_prefill_time_seconds_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "Prefill - {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Prefill - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "B"
         }
@@ -1796,7 +1847,58 @@
       },
       "description": "",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -1807,18 +1909,29 @@
       },
       "id": 13,
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by(model_name, WorkerId) (rate(vllm:request_max_num_generation_tokens_sum{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]))",
+          "expr": "sum by(model_name, engine) (rate(vllm:request_max_num_generation_tokens_sum{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
           "interval": "",
-          "legendFormat": "{{model_name}} - {{WorkerId}}",
+          "legendFormat": "{{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -1832,7 +1945,58 @@
       },
       "description": "Percentage of prefix cache queries that resulted in a cache hit (GPU).",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 0,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 1,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "auto",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "red",
+                "value": 80
+              }
+            ]
+          }
+        },
         "overrides": []
       },
       "gridPos": {
@@ -1843,24 +2007,617 @@
       },
       "id": 28,
       "options": {
-        "alertThreshold": true
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [],
+          "displayMode": "list",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "increase(vllm:gpu_prefix_cache_hits_total{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval]) / increase(vllm:gpu_prefix_cache_queries_total{model_name=~\"$vllm_model_name\", WorkerId=~\"$workerid\", }[$interval])",
+          "expr": "increase(vllm:prefix_cache_hits_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]) / increase(vllm:prefix_cache_queries_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])",
           "interval": "",
-          "legendFormat": "GPU: {{model_name}} - {{WorkerId}}",
+          "legendFormat": "Prefix Cache Hit Rate - {{model_name}} - {{engine}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
       ],
       "title": "vLLM: Prefix Cache Hit Rate",
       "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Mean number of drafts per speculation",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-yellow",
+                "value": 0
+              },
+              {
+                "color": "super-light-green",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 48
+      },
+      "id": 35,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by (model_name) (rate(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) / sum by (model_name) (rate(vllm:spec_decode_num_drafts_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
+          "interval": "",
+          "legendFormat": "{{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "SpecDecoding: Mean Acceptance Length",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Speculative Decoding metrics showing draft and accepted token rates",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "tokens/s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 56
+      },
+      "id": 30,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "rate(vllm:spec_decode_num_accepted_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])",
+          "interval": "",
+          "legendFormat": "Accepted Throughput - {{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "rate(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])",
+          "interval": "",
+          "legendFormat": "Drafted Throughput - {{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        }
+      ],
+      "title": "SpecDecoding: Accepted vs Drafted Throughput",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Speculative Decoding acceptance rate percentage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "line"
+            }
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 56
+      },
+      "id": 33,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by (model_name) (rate(vllm:spec_decode_num_accepted_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) / sum by (model_name) (rate(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) * 100",
+          "interval": "",
+          "legendFormat": "{{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "SpecDecoding: Draft Acceptance Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Total accepted and drafted tokens in speculative decoding",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 64
+      },
+      "id": 32,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "increase(vllm:spec_decode_num_accepted_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])",
+          "interval": "",
+          "legendFormat": "Accepted - {{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "increase(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])",
+          "interval": "",
+          "legendFormat": "Drafted - {{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        }
+      ],
+      "title": "SpecDecoding: Accepted vs Drafted Tokens",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Speculative Decoding acceptance rate percentage",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "max": 100,
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "red",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 80
+              },
+              {
+                "color": "green",
+                "value": 90
+              }
+            ]
+          },
+          "unit": "percent"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 64
+      },
+      "id": 31,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by (model_name) (rate(vllm:spec_decode_num_accepted_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) / sum by (model_name) (rate(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) * 100",
+          "interval": "",
+          "legendFormat": "{{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "SpecDecoding: Draft Acceptance Rate",
+      "type": "stat"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Mean number of drafts per speculation",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "thresholds"
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "super-light-yellow",
+                "value": 0
+              },
+              {
+                "color": "super-light-green",
+                "value": 1
+              },
+              {
+                "color": "green",
+                "value": 2
+              }
+            ]
+          },
+          "unit": "short"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 72
+      },
+      "id": 36,
+      "options": {
+        "colorMode": "value",
+        "graphMode": "area",
+        "justifyMode": "auto",
+        "orientation": "auto",
+        "percentChangeColorMode": "standard",
+        "reduceOptions": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "fields": "",
+          "values": false
+        },
+        "showPercentChange": false,
+        "text": {},
+        "textMode": "auto",
+        "wideLayout": true
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by (model_name) (rate(vllm:spec_decode_num_draft_tokens_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval])) / sum by (model_name) (rate(vllm:spec_decode_num_drafts_total{model_name=~\"$vllm_model_name\", engine=~\"$workerid\", }[$interval]))",
+          "interval": "",
+          "legendFormat": "{{model_name}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        }
+      ],
+      "title": "SpecDecoding: Mean Acceptance Length",
+      "type": "stat"
     },
     {
       "datasource": {
@@ -1877,7 +2634,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "rgb(230, 230, 230)"
+                "color": "rgb(230, 230, 230)",
+                "value": 0
               }
             ]
           },
@@ -1889,10 +2647,13 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 48
+        "y": 72
       },
       "id": 27,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1902,18 +2663,19 @@
         },
         "showThresholdLabels": false,
         "showThresholdMarkers": false,
+        "sizing": "auto",
         "text": {
           "titleSize": 12
         }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1w])) / sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1w])) / sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "In: {{ model_name}}",
           "queryType": "randomWalk",
@@ -1924,7 +2686,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1w])) / sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1w])) / sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "Out: {{ model_name}}",
           "queryType": "randomWalk",
@@ -1950,7 +2712,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-yellow"
+                "color": "super-light-yellow",
+                "value": 0
               },
               {
                 "color": "super-light-green",
@@ -1970,7 +2733,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 56
+        "y": 80
       },
       "id": 14,
       "options": {
@@ -1978,6 +2741,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -1985,17 +2749,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1d])))",
+          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1d])))",
           "interval": "",
           "legendFormat": "Input: {{model_name}}",
           "queryType": "randomWalk",
@@ -2006,7 +2772,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1d])))",
+          "expr": "(sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1d])))",
           "interval": "",
           "legendFormat": "Generated: {{model_name}}",
           "queryType": "randomWalk",
@@ -2032,7 +2798,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-yellow"
+                "color": "super-light-yellow",
+                "value": 0
               },
               {
                 "color": "super-light-green",
@@ -2052,7 +2819,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 56
+        "y": 80
       },
       "id": 15,
       "options": {
@@ -2060,6 +2827,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2067,17 +2835,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1h])",
+          "expr": "delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1h])",
           "interval": "",
           "legendFormat": "Input: {{model_name}}",
           "queryType": "randomWalk",
@@ -2088,7 +2858,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1h])",
+          "expr": "delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1h])",
           "interval": "",
           "legendFormat": "Generated: {{model_name}}",
           "queryType": "randomWalk",
@@ -2104,14 +2874,26 @@
       },
       "description": "",
       "fieldConfig": {
-        "defaults": {},
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            }
+          },
+          "mappings": []
+        },
         "overrides": []
       },
       "gridPos": {
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 64
+        "y": 88
       },
       "id": 16,
       "options": {
@@ -2133,16 +2915,21 @@
           "fields": "",
           "values": false
         },
-        "text": {}
+        "text": {},
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "single",
+          "sort": "none"
+        }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1d]))",
+          "expr": "sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1d]))",
           "interval": "",
           "legendFormat": "{{model_name}}",
           "queryType": "randomWalk",
@@ -2168,7 +2955,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-yellow"
+                "color": "super-light-yellow",
+                "value": 0
               },
               {
                 "color": "super-light-green",
@@ -2188,7 +2976,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 64
+        "y": 88
       },
       "id": 18,
       "options": {
@@ -2196,6 +2984,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2203,17 +2992,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1d])) / sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1d]))",
+          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1d])) / sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1d]))",
           "interval": "",
           "legendFormat": "{{model_name}}",
           "queryType": "randomWalk",
@@ -2239,7 +3030,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-yellow"
+                "color": "super-light-yellow",
+                "value": 0
               },
               {
                 "color": "super-light-green",
@@ -2259,7 +3051,7 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 72
+        "y": 96
       },
       "id": 19,
       "options": {
@@ -2267,6 +3059,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2274,17 +3067,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1d])) + sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1d]))",
+          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1d])) + sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1d]))",
           "interval": "",
           "legendFormat": "{{model_name}}",
           "queryType": "randomWalk",
@@ -2310,7 +3105,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "super-light-yellow"
+                "color": "super-light-yellow",
+                "value": 0
               },
               {
                 "color": "super-light-green",
@@ -2330,7 +3126,7 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 72
+        "y": 96
       },
       "id": 21,
       "options": {
@@ -2338,6 +3134,7 @@
         "graphMode": "area",
         "justifyMode": "auto",
         "orientation": "auto",
+        "percentChangeColorMode": "standard",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2345,17 +3142,19 @@
           "fields": "",
           "values": false
         },
+        "showPercentChange": false,
         "text": {},
-        "textMode": "auto"
+        "textMode": "auto",
+        "wideLayout": true
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "max_over_time(sum by (model_name) (rate(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[2m]))[24h:])",
+          "expr": "max_over_time(sum by (model_name) (rate(vllm:generation_tokens_total{engine=~\"$workerid\", }[2m]))[24h:])",
           "interval": "",
           "legendFormat": "{{model_name}}",
           "queryType": "randomWalk",
@@ -2380,7 +3179,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "rgb(230, 230, 230)"
+                "color": "rgb(230, 230, 230)",
+                "value": 0
               }
             ]
           },
@@ -2392,10 +3192,13 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 80
+        "y": 104
       },
       "id": 23,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2405,18 +3208,19 @@
         },
         "showThresholdLabels": false,
         "showThresholdMarkers": false,
+        "sizing": "auto",
         "text": {
           "titleSize": 12
         }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "{{ model_name}}",
           "queryType": "randomWalk",
@@ -2441,7 +3245,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "rgb(230, 230, 230)"
+                "color": "rgb(230, 230, 230)",
+                "value": 0
               }
             ]
           },
@@ -2453,10 +3258,13 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 80
+        "y": 104
       },
       "id": 24,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2466,18 +3274,19 @@
         },
         "showThresholdLabels": false,
         "showThresholdMarkers": false,
+        "sizing": "auto",
         "text": {
           "titleSize": 12
         }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1w])) +\nsum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1w]))) / sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1w])) +\nsum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1w]))) / sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "{{ model_name}}",
           "queryType": "randomWalk",
@@ -2502,7 +3311,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "rgb(230, 230, 230)"
+                "color": "rgb(230, 230, 230)",
+                "value": 0
               }
             ]
           },
@@ -2514,10 +3324,13 @@
         "h": 8,
         "w": 12,
         "x": 0,
-        "y": 88
+        "y": 112
       },
       "id": 25,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2527,18 +3340,19 @@
         },
         "showThresholdLabels": false,
         "showThresholdMarkers": false,
+        "sizing": "auto",
         "text": {
           "titleSize": 12
         }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1w])) + sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1w])))/ sum by (model_name) (delta(vllm:request_success_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "(sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1w])) + sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1w])))/ sum by (model_name) (delta(vllm:request_success_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "{{ model_name}}",
           "queryType": "randomWalk",
@@ -2563,7 +3377,8 @@
             "mode": "percentage",
             "steps": [
               {
-                "color": "rgb(230, 230, 230)"
+                "color": "rgb(230, 230, 230)",
+                "value": 0
               }
             ]
           },
@@ -2575,10 +3390,13 @@
         "h": 8,
         "w": 12,
         "x": 12,
-        "y": 88
+        "y": 112
       },
       "id": 26,
       "options": {
+        "minVizHeight": 75,
+        "minVizWidth": 75,
+        "orientation": "auto",
         "reduceOptions": {
           "calcs": [
             "lastNotNull"
@@ -2588,18 +3406,19 @@
         },
         "showThresholdLabels": false,
         "showThresholdMarkers": false,
+        "sizing": "auto",
         "text": {
           "titleSize": 12
         }
       },
-      "pluginVersion": "7.5.17",
+      "pluginVersion": "12.1.1",
       "targets": [
         {
           "datasource": {
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "sum by (model_name) (delta(vllm:prompt_tokens_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "In: {{ model_name}}",
           "queryType": "randomWalk",
@@ -2610,7 +3429,7 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sum by (model_name) (delta(vllm:generation_tokens_total{WorkerId=~\"$workerid\", }[1w]))",
+          "expr": "sum by (model_name) (delta(vllm:generation_tokens_total{engine=~\"$workerid\", }[1w]))",
           "interval": "",
           "legendFormat": "Out: {{ model_name }}",
           "queryType": "randomWalk",
@@ -2624,9 +3443,7 @@
   "preload": false,
   "refresh": false,
   "schemaVersion": 41,
-  "tags": [
-    "rayVersion:2.50.0"
-  ],
+  "tags": [],
   "templating": {
     "list": [
       {
@@ -2672,13 +3489,13 @@
           "value": "$__all"
         },
         "datasource": "${datasource}",
-        "definition": "label_values(vllm:request_prompt_tokens_sum{}, WorkerId)",
+        "definition": "label_values(vllm:request_prompt_tokens_sum{}, engine)",
         "includeAll": true,
-        "label": "Worker ID",
+        "label": "Engine ID",
         "name": "workerid",
         "options": [],
         "query": {
-          "query": "label_values(vllm:request_prompt_tokens_sum{}, WorkerId)",
+          "query": "label_values(vllm:request_prompt_tokens_sum{}, engine)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -2703,7 +3520,7 @@
   },
   "timepicker": {},
   "timezone": "",
-  "title": "LLM Dashboard",
-  "uid": "verlvLlmDashboard",
+  "title": "LLM Dashboard4 Copy",
+  "uid": "a4cabbce-92af-4a84-9399-4deba24ae6d1",
   "version": 1
 }
