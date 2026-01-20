@@ -1,0 +1,118 @@
+Metric	Type	Help
+sglang:cache_hit_rate
+gauge
+The prefix cache hit rate.
+sglang:engine_load_weights_time
+gauge
+The time taken for the engine to load weights.
+sglang:engine_startup_time
+gauge
+The time taken for the engine to start up.
+sglang:evicted_tokens_total
+unknown
+unknown
+sglang:eviction_duration_seconds_bucket
+unknown
+unknown
+sglang:eviction_duration_seconds_count
+unknown
+unknown
+sglang:eviction_duration_seconds_sum
+unknown
+unknown
+sglang:gen_throughput
+gauge
+The generation throughput (token/s).
+sglang:is_cuda_graph
+gauge
+Whether the batch is using CUDA graph.
+sglang:kv_transfer_alloc_ms
+gauge
+The allocation waiting time of the KV transfer in ms.
+sglang:kv_transfer_bootstrap_ms
+gauge
+The bootstrap time of the KV transfer in ms.
+sglang:kv_transfer_latency_ms
+gauge
+The transfer latency of the KV cache in ms.
+sglang:kv_transfer_speed_gb_s
+gauge
+The transfer speed of the KV cache in GB/s.
+sglang:mamba_usage
+gauge
+The token usage for Mamba layers.
+sglang:max_total_num_tokens
+gauge
+Maximum total number of tokens in the KV cache pool.
+sglang:new_token_ratio
+gauge
+The new token ratio.
+sglang:num_decode_prealloc_queue_reqs
+gauge
+The number of requests in the decode prealloc queue.
+sglang:num_decode_transfer_queue_reqs
+gauge
+The number of requests in the decode transfer queue.
+sglang:num_grammar_queue_reqs
+gauge
+The number of requests in the grammar waiting queue.
+sglang:num_paused_reqs
+gauge
+The number of paused requests by async weight sync.
+sglang:num_prefill_inflight_queue_reqs
+gauge
+The number of requests in the prefill inflight queue.
+sglang:num_prefill_prealloc_queue_reqs
+gauge
+The number of requests in the prefill prealloc queue.
+sglang:num_queue_reqs
+gauge
+The number of requests in the waiting queue.
+sglang:num_retracted_reqs
+gauge
+The number of retracted requests.
+sglang:num_running_reqs
+gauge
+The number of running requests.
+sglang:num_running_reqs_offline_batch
+gauge
+The number of running low-priority offline batch requests(label is 'batch').
+sglang:num_used_tokens
+gauge
+The number of used tokens.
+sglang:pending_prealloc_token_usage
+gauge
+The token usage for pending preallocated tokens (not preallocated yet).
+sglang:per_stage_req_latency_seconds_bucket
+histogram
+The latency of each stage of requests.
+sglang:per_stage_req_latency_seconds_count
+histogram
+The latency of each stage of requests.
+sglang:per_stage_req_latency_seconds_sum
+histogram
+The latency of each stage of requests.
+sglang:queue_time_seconds_bucket
+histogram
+Histogram of queueing time in seconds.
+sglang:queue_time_seconds_count
+histogram
+Histogram of queueing time in seconds.
+sglang:queue_time_seconds_sum
+histogram
+Histogram of queueing time in seconds.
+sglang:spec_accept_length
+gauge
+The average acceptance length of speculative decoding.
+sglang:spec_accept_rate
+gauge
+The average acceptance rate of speculative decoding (`accepted tokens / total draft tokens` in batch).
+sglang:swa_token_usage
+gauge
+The token usage for SWA layers.
+sglang:token_usage
+gauge
+The token usage.
+sglang:utilization
+gauge
+The utilization.
