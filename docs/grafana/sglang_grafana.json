@@ -206,9 +206,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:gen_throughput{model_name=~\"$model_name\"}",
+          "expr": "sglang:gen_throughput{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Generation Throughput - {{model_name}}",
+          "legendFormat": "Generation Throughput - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -401,9 +401,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Waiting Queue - {{model_name}}",
+          "legendFormat": "Waiting Queue - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -412,9 +412,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_running_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_running_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Running - {{model_name}}",
+          "legendFormat": "Running - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -423,9 +423,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_grammar_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_grammar_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Grammar Queue - {{model_name}}",
+          "legendFormat": "Grammar Queue - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         }
@@ -618,9 +618,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P99 - {{model_name}}",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -629,9 +629,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P95 - {{model_name}}",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -640,9 +640,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:per_stage_req_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P50 - {{model_name}}",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         }
@@ -835,9 +835,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P99 - {{model_name}}",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -846,9 +846,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P95 - {{model_name}}",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -857,9 +857,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:queue_time_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
           "interval": "",
-          "legendFormat": "P50 - {{model_name}}",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         }
@@ -959,9 +959,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_used_tokens{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_used_tokens{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Used Tokens - {{model_name}}",
+          "legendFormat": "Used Tokens - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -970,9 +970,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:max_total_num_tokens{model_name=~\"$model_name\"}",
+          "expr": "sglang:max_total_num_tokens{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Max Total Tokens - {{model_name}}",
+          "legendFormat": "Max Total Tokens - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         }
@@ -1170,9 +1170,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:cache_hit_rate{model_name=~\"$model_name\"}",
+          "expr": "sglang:cache_hit_rate{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Cache Hit Rate - {{model_name}}",
+          "legendFormat": "Cache Hit Rate - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -1273,9 +1273,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:token_usage{model_name=~\"$model_name\"}",
+          "expr": "sglang:token_usage{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Total Token Usage - {{model_name}}",
+          "legendFormat": "Total Token Usage - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1284,9 +1284,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:pending_prealloc_token_usage{model_name=~\"$model_name\"}",
+          "expr": "sglang:pending_prealloc_token_usage{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Pending Prealloc - {{model_name}}",
+          "legendFormat": "Pending Prealloc - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -1295,9 +1295,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:swa_token_usage{model_name=~\"$model_name\"}",
+          "expr": "sglang:swa_token_usage{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "SWA Layer - {{model_name}}",
+          "legendFormat": "SWA Layer - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -1306,9 +1306,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:mamba_usage{model_name=~\"$model_name\"}",
+          "expr": "sglang:mamba_usage{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Mamba Layer - {{model_name}}",
+          "legendFormat": "Mamba Layer - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "D"
         }
@@ -1413,9 +1413,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:utilization{model_name=~\"$model_name\"}",
+          "expr": "sglang:utilization{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Utilization - {{model_name}}",
+          "legendFormat": "Utilization - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -1515,9 +1515,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_prefill_prealloc_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_prefill_prealloc_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Prefill Prealloc - {{model_name}}",
+          "legendFormat": "Prefill Prealloc - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1526,9 +1526,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_prefill_inflight_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_prefill_inflight_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Prefill Inflight - {{model_name}}",
+          "legendFormat": "Prefill Inflight - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -1537,9 +1537,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_decode_prealloc_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_decode_prealloc_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Decode Prealloc - {{model_name}}",
+          "legendFormat": "Decode Prealloc - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -1548,9 +1548,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_decode_transfer_queue_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_decode_transfer_queue_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Decode Transfer - {{model_name}}",
+          "legendFormat": "Decode Transfer - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "D"
         },
@@ -1559,9 +1559,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_running_reqs_offline_batch{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_running_reqs_offline_batch{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Offline Batch - {{model_name}}",
+          "legendFormat": "Offline Batch - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "E"
         }
@@ -1686,9 +1686,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:kv_transfer_speed_gb_s{model_name=~\"$model_name\"}",
+          "expr": "sglang:kv_transfer_speed_gb_s{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Transfer Speed (GB/s) - {{model_name}}",
+          "legendFormat": "Transfer Speed (GB/s) - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -1697,9 +1697,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:kv_transfer_latency_ms{model_name=~\"$model_name\"}",
+          "expr": "sglang:kv_transfer_latency_ms{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Transfer Latency (ms) - {{model_name}}",
+          "legendFormat": "Transfer Latency (ms) - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -1708,9 +1708,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:kv_transfer_bootstrap_ms{model_name=~\"$model_name\"}",
+          "expr": "sglang:kv_transfer_bootstrap_ms{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Bootstrap Time (ms) - {{model_name}}",
+          "legendFormat": "Bootstrap Time (ms) - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         },
@@ -1719,9 +1719,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:kv_transfer_alloc_ms{model_name=~\"$model_name\"}",
+          "expr": "sglang:kv_transfer_alloc_ms{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Alloc Wait Time (ms) - {{model_name}}",
+          "legendFormat": "Alloc Wait Time (ms) - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "D"
         }
@@ -1919,9 +1919,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:spec_accept_rate{model_name=~\"$model_name\"}",
+          "expr": "sglang:spec_accept_rate{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Speculative Acceptance Rate - {{model_name}}",
+          "legendFormat": "Speculative Acceptance Rate - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -2118,9 +2118,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:spec_accept_length{model_name=~\"$model_name\"}",
+          "expr": "sglang:spec_accept_length{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Speculative Acceptance Length - {{model_name}}",
+          "legendFormat": "Speculative Acceptance Length - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         }
@@ -2220,9 +2220,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_paused_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_paused_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Paused Requests - {{model_name}}",
+          "legendFormat": "Paused Requests - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -2231,9 +2231,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:num_retracted_reqs{model_name=~\"$model_name\"}",
+          "expr": "sglang:num_retracted_reqs{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Retracted Requests - {{model_name}}",
+          "legendFormat": "Retracted Requests - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         }
@@ -2350,9 +2350,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:new_token_ratio{model_name=~\"$model_name\"}",
+          "expr": "sglang:new_token_ratio{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "New Token Ratio - {{model_name}}",
+          "legendFormat": "New Token Ratio - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "A"
         },
@@ -2361,9 +2361,9 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:cached_tokens_total{model_name=~\"$model_name\"}",
+          "expr": "sglang:cached_tokens_total{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "Cached Tokens Total - {{model_name}}",
+          "legendFormat": "Cached Tokens Total - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "B"
         },
@@ -2372,14 +2372,1154 @@
             "uid": "${datasource}"
           },
           "exemplar": true,
-          "expr": "sglang:is_cuda_graph{model_name=~\"$model_name\"}",
+          "expr": "sglang:is_cuda_graph{model_name=~\"$model_name\", job=~\"$server\"}",
           "interval": "",
-          "legendFormat": "CUDA Graph Enabled - {{model_name}}",
+          "legendFormat": "CUDA Graph Enabled - {{model_name}} - {{job}}",
           "queryType": "randomWalk",
           "refId": "C"
         }
       ],
       "title": "SGLang: Additional Metrics",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Prompt (prefill) token length distribution: P99/P95/P50 and average, computed from the prompt_tokens_histogram. Note: this metric is recorded without a model_name label on some builds; the $model_name filter is applied where the label exists.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 56
+      },
+      "id": 21,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:prompt_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:prompt_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:prompt_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(model_name, job) (rate(sglang:prompt_tokens_histogram_sum{model_name=~\"$model_name\", job=~\"$server\"}[$interval])) / sum by(model_name, job) (rate(sglang:prompt_tokens_histogram_count{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Avg - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "D"
+        }
+      ],
+      "title": "SGLang: Prompt Token Length",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Generation (output) token length distribution: P99/P95/P50 and average, computed from the generation_tokens_histogram.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "none"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 56
+      },
+      "id": 22,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:generation_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:generation_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:generation_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(model_name, job) (rate(sglang:generation_tokens_histogram_sum{model_name=~\"$model_name\", job=~\"$server\"}[$interval])) / sum by(model_name, job) (rate(sglang:generation_tokens_histogram_count{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Avg - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "D"
+        }
+      ],
+      "title": "SGLang: Generation Token Length",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Time To First Token (TTFT) latency: P99/P95/P50 and average, from the time_to_first_token_seconds histogram. Measures prefill + queue time before the first decoded token.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1
+              },
+              {
+                "color": "red",
+                "value": 5
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 72
+      },
+      "id": 23,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:time_to_first_token_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:time_to_first_token_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:time_to_first_token_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(model_name, job) (rate(sglang:time_to_first_token_seconds_sum{model_name=~\"$model_name\", job=~\"$server\"}[$interval])) / sum by(model_name, job) (rate(sglang:time_to_first_token_seconds_count{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Avg - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "D"
+        }
+      ],
+      "title": "SGLang: Time To First Token (TTFT)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Time Per Output Token (TPOT), approximated by the inter_token_latency_seconds histogram (latency between successive generated tokens): P99/P95/P50 and average.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 0.05
+              },
+              {
+                "color": "red",
+                "value": 0.1
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 72
+      },
+      "id": 24,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, model_name, job) (rate(sglang:inter_token_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P99 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, model_name, job) (rate(sglang:inter_token_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P95 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, sum by(le, model_name, job) (rate(sglang:inter_token_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P50 - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(model_name, job) (rate(sglang:inter_token_latency_seconds_sum{model_name=~\"$model_name\", job=~\"$server\"}[$interval])) / sum by(model_name, job) (rate(sglang:inter_token_latency_seconds_count{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Avg - {{model_name}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "D"
+        }
+      ],
+      "title": "SGLang: Time Per Output Token (TPOT)",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Heatmap of Time To First Token (TTFT), from the time_to_first_token_seconds histogram. Each cell is the request count in a latency bucket over the interval. Labeled by model_name only (no engine/worker label).",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 80
+      },
+      "id": 29,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "s"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "min": 0,
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Spectral",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
+        "legend": {
+          "show": true,
+          "showLegend": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Request count"
+        },
+        "tooltip": {
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": true
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "s"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "expr": "sum by(le, model_name, job) (increase(sglang:time_to_first_token_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{le}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "SGLang: Time To First Token (TTFT) Heatmap",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Heatmap of inter-token latency (TPOT proxy), from the inter_token_latency_seconds histogram. Each cell is the token count in a latency bucket over the interval. Labeled by model_name only (no engine/worker label).",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 80
+      },
+      "id": 30,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "s"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "min": 0,
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Spectral",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
+        "legend": {
+          "show": true,
+          "showLegend": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Token count"
+        },
+        "tooltip": {
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": true
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "s"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "expr": "sum by(le, model_name, job) (increase(sglang:inter_token_latency_seconds_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{le}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "SGLang: Time Per Output Token (TPOT) Heatmap",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Heatmap of request prompt length, from the prompt_tokens_histogram. Each cell is the request count in a length bucket over the interval. Note: this histogram is labeled by model_name only (no engine/worker label).",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 64
+      },
+      "id": 27,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "none"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "min": 0,
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Spectral",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
+        "legend": {
+          "show": true,
+          "showLegend": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Request count"
+        },
+        "tooltip": {
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": true
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "expr": "sum by(le, model_name, job) (increase(sglang:prompt_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{le}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "SGLang: Request Prompt Length",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Heatmap of request generation length, from the generation_tokens_histogram. Each cell is the request count in a length bucket over the interval. Note: this histogram is labeled by model_name only (no engine/worker label).",
+      "fieldConfig": {
+        "defaults": {
+          "custom": {
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "scaleDistribution": {
+              "type": "linear"
+            }
+          }
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 64
+      },
+      "id": 28,
+      "options": {
+        "calculate": false,
+        "cellGap": 1,
+        "cellValues": {
+          "unit": "none"
+        },
+        "color": {
+          "exponent": 0.5,
+          "fill": "dark-orange",
+          "min": 0,
+          "mode": "scheme",
+          "reverse": false,
+          "scale": "exponential",
+          "scheme": "Spectral",
+          "steps": 64
+        },
+        "exemplars": {
+          "color": "rgba(255,0,255,0.7)"
+        },
+        "filterValues": {
+          "le": 1e-09
+        },
+        "legend": {
+          "show": true,
+          "showLegend": true
+        },
+        "rowsFrame": {
+          "layout": "auto",
+          "value": "Request count"
+        },
+        "tooltip": {
+          "mode": "single",
+          "showColorScale": false,
+          "yHistogram": true
+        },
+        "yAxis": {
+          "axisPlacement": "left",
+          "reverse": false,
+          "unit": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "expr": "sum by(le, model_name, job) (increase(sglang:generation_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+          "format": "heatmap",
+          "fullMetaSearch": false,
+          "includeNullMetadata": true,
+          "instant": false,
+          "legendFormat": "{{le}}",
+          "range": true,
+          "refId": "A",
+          "useBackend": false
+        }
+      ],
+      "title": "SGLang: Request Generation Length",
+      "type": "heatmap"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "KV cache eviction rate: tokens evicted from the GPU KV cache per second (radix cache pressure). Sustained non-zero values indicate the KV cache is full and tokens are being reclaimed. Note: evicted_tokens_total is labeled by cache_type only (no model_name), so the $model_name filter does not apply here.",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              },
+              {
+                "color": "yellow",
+                "value": 1000
+              },
+              {
+                "color": "red",
+                "value": 10000
+              }
+            ]
+          },
+          "unit": "tokens/s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 88
+      },
+      "id": 25,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(cache_type, job) (rate(sglang:evicted_tokens_total{job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Eviction Rate - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(cache_type, job) (increase(sglang:evicted_tokens_total{job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Evicted in {{$interval}} - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        }
+      ],
+      "title": "SGLang: KV Cache Eviction Rate",
+      "type": "timeseries"
+    },
+    {
+      "datasource": {
+        "uid": "${datasource}"
+      },
+      "description": "Time spent evicting KV cache memory from GPU to CPU, from the eviction_duration_seconds histogram: P99/P95/P50 and average. Labeled by cache_type only (no model_name).",
+      "fieldConfig": {
+        "defaults": {
+          "color": {
+            "mode": "palette-classic"
+          },
+          "custom": {
+            "axisBorderShow": false,
+            "axisCenteredZero": false,
+            "axisColorMode": "text",
+            "axisLabel": "",
+            "axisPlacement": "auto",
+            "barAlignment": 0,
+            "barWidthFactor": 0.6,
+            "drawStyle": "line",
+            "fillOpacity": 10,
+            "gradientMode": "none",
+            "hideFrom": {
+              "legend": false,
+              "tooltip": false,
+              "viz": false
+            },
+            "insertNulls": false,
+            "lineInterpolation": "linear",
+            "lineWidth": 2,
+            "pointSize": 5,
+            "scaleDistribution": {
+              "type": "linear"
+            },
+            "showPoints": "never",
+            "spanNulls": false,
+            "stacking": {
+              "group": "A",
+              "mode": "none"
+            },
+            "thresholdsStyle": {
+              "mode": "off"
+            }
+          },
+          "mappings": [],
+          "min": 0,
+          "thresholds": {
+            "mode": "absolute",
+            "steps": [
+              {
+                "color": "green",
+                "value": 0
+              }
+            ]
+          },
+          "unit": "s"
+        },
+        "overrides": []
+      },
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 88
+      },
+      "id": 26,
+      "options": {
+        "alertThreshold": true,
+        "legend": {
+          "calcs": [
+            "lastNotNull"
+          ],
+          "displayMode": "table",
+          "placement": "bottom",
+          "showLegend": true
+        },
+        "tooltip": {
+          "hideZeros": false,
+          "mode": "multi",
+          "sort": "none"
+        }
+      },
+      "pluginVersion": "12.1.1",
+      "targets": [
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.99, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P99 - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "A"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.95, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P95 - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "B"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "histogram_quantile(0.5, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
+          "interval": "",
+          "legendFormat": "P50 - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "C"
+        },
+        {
+          "datasource": {
+            "uid": "${datasource}"
+          },
+          "exemplar": true,
+          "expr": "sum by(cache_type, job) (rate(sglang:eviction_duration_seconds_sum{job=~\"$server\"}[$interval])) / sum by(cache_type, job) (rate(sglang:eviction_duration_seconds_count{job=~\"$server\"}[$interval]))",
+          "interval": "",
+          "legendFormat": "Avg - {{cache_type}} - {{job}}",
+          "queryType": "randomWalk",
+          "refId": "D"
+        }
+      ],
+      "title": "SGLang: KV Cache Eviction Duration",
       "type": "timeseries"
     }
   ],
@@ -2418,6 +3558,25 @@
         "options": [],
         "query": {
           "query": "label_values(sglang:gen_throughput{}, model_name)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 1,
+        "type": "query"
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "${datasource}",
+        "definition": "label_values(sglang:gen_throughput, job)",
+        "includeAll": true,
+        "label": "Server (job)",
+        "name": "server",
+        "options": [],
+        "query": {
+          "query": "label_values(sglang:gen_throughput, job)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
