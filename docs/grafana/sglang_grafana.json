@@ -1127,6 +1127,30 @@
                       }
                     }
                   ]
+                },
+                {
+                  "__systemRef": "hideSeriesFrom",
+                  "matcher": {
+                    "id": "byNames",
+                    "options": {
+                      "mode": "exclude",
+                      "names": [
+                        "Generation Throughput - /user/yanhui/share_user_long/qiqi/ckpts/minicpm5/39a5b/job_522682.step_13000 - rollout-528952"
+                      ],
+                      "prefix": "All except:",
+                      "readOnly": true
+                    }
+                  },
+                  "properties": [
+                    {
+                      "id": "custom.hideFrom",
+                      "value": {
+                        "legend": false,
+                        "tooltip": true,
+                        "viz": true
+                      }
+                    }
+                  ]
                 }
               ]
             },
@@ -4640,7 +4664,7 @@
           "spec": {
             "element": {
               "kind": "ElementReference",
-              "name": "panel-7"
+              "name": "panel-31"
             },
             "height": 8,
             "width": 12,
@@ -4653,7 +4677,7 @@
           "spec": {
             "element": {
               "kind": "ElementReference",
-              "name": "panel-31"
+              "name": "panel-7"
             },
             "height": 8,
             "width": 12,
@@ -4666,7 +4690,7 @@
           "spec": {
             "element": {
               "kind": "ElementReference",
-              "name": "panel-5"
+              "name": "panel-6"
             },
             "height": 8,
             "width": 12,
@@ -4679,7 +4703,7 @@
           "spec": {
             "element": {
               "kind": "ElementReference",
-              "name": "panel-6"
+              "name": "panel-5"
             },
             "height": 8,
             "width": 12,
