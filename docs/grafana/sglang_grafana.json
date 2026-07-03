@@ -5037,8 +5037,8 @@
         "allValue": ".*",
         "allowCustomValue": true,
         "current": {
-          "text": "rollout-528952",
-          "value": "rollout-528952"
+          "text": "All",
+          "value": "$__all"
         },
         "definition": "label_values(sglang:gen_throughput, job)",
         "hide": "dontHide",
