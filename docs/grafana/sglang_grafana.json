@@ -5,8 +5,8 @@
     "name": "ad5s2k8",
     "namespace": "default",
     "uid": "49c2435f-b213-468b-941c-e906c3336396",
-    "resourceVersion": "1783323433401994",
-    "generation": 27,
+    "resourceVersion": "1783324833651007",
+    "generation": 30,
     "creationTimestamp": "2026-07-03T10:36:20Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "954166231703552"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.1.0 (b309c9bb3b)",
       "grafana.app/updatedBy": "user:bfqss7budum0wb",
-      "grafana.app/updatedTimestamp": "2026-07-06T07:37:13Z"
+      "grafana.app/updatedTimestamp": "2026-07-06T08:00:33Z"
     }
   },
   "spec": {
@@ -4102,6 +4102,153 @@
           }
         }
       },
+      "panel-39": {
+        "kind": "Panel",
+        "spec": {
+          "id": 39,
+          "title": "SGLang: Tokens Last Hour",
+          "description": "Tokens processed in the last hour (increase of realtime_tokens_total over [1h]), summed across dp_rank and split by mode (prefill_compute / prefill_cache / decode).",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[1h]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[1h]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[1h]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "C",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "stat",
+            "version": "13.1.0",
+            "spec": {
+              "options": {
+                "colorMode": "value",
+                "graphMode": "area",
+                "justifyMode": "auto",
+                "orientation": "auto",
+                "percentChangeColorMode": "standard",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "showPercentChange": false,
+                "textMode": "auto",
+                "wideLayout": true
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "none",
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1000000,
+                        "color": "yellow"
+                      },
+                      {
+                        "value": 10000000,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byValue",
+                      "options": {
+                        "op": "gte",
+                        "reducer": "allIsZero",
+                        "value": 0
+                      }
+                    },
+                    "properties": []
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
       "panel-4": {
         "kind": "Panel",
         "spec": {
@@ -4318,6 +4465,164 @@
                         }
                       }
                     ]
+                  }
+                ]
+              }
+            }
+          }
+        }
+      },
+      "panel-40": {
+        "kind": "Panel",
+        "spec": {
+          "id": 40,
+          "title": "SGLang: Realtime Token Rate",
+          "description": "Token processing rate (tokens/s) from realtime_tokens_total, summed across dp_rank and split by mode (prefill_compute / prefill_cache / decode). Window = $interval.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[$interval]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[$interval]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[$interval]))",
+                        "interval": "",
+                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "C",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "gauge",
+            "version": "13.1.0",
+            "spec": {
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.54,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 63,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": true,
+                "textMode": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "tokens/s",
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "percentage",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 60,
+                        "color": "#EAB839"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byValue",
+                      "options": {
+                        "op": "gte",
+                        "reducer": "allIsZero",
+                        "value": 0
+                      }
+                    },
+                    "properties": []
                   }
                 ]
               }
@@ -5417,6 +5722,32 @@
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-4"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 104,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-39"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 104,
+              "width": 12,
+              "height": 8,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-40"
               }
             }
           }
