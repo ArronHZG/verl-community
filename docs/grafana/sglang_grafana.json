@@ -5,8 +5,8 @@
     "name": "ad5s2k8",
     "namespace": "default",
     "uid": "49c2435f-b213-468b-941c-e906c3336396",
-    "resourceVersion": "1783324833651007",
-    "generation": 30,
+    "resourceVersion": "1783330419135980",
+    "generation": 35,
     "creationTimestamp": "2026-07-03T10:36:20Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "954166231703552"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.1.0 (b309c9bb3b)",
       "grafana.app/updatedBy": "user:bfqss7budum0wb",
-      "grafana.app/updatedTimestamp": "2026-07-06T08:00:33Z"
+      "grafana.app/updatedTimestamp": "2026-07-06T09:33:39Z"
     }
   },
   "spec": {
@@ -2020,194 +2020,6 @@
           }
         }
       },
-      "panel-26": {
-        "kind": "Panel",
-        "spec": {
-          "id": 26,
-          "title": "SGLang: KV Cache Eviction Duration",
-          "description": "Time spent evicting KV cache memory from GPU to CPU, from the eviction_duration_seconds histogram: P99/P95/P50 and average. Labeled by cache_type only (no model_name).",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${datasource}"
-                      },
-                      "spec": {
-                        "exemplar": true,
-                        "expr": "histogram_quantile(0.99, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
-                        "interval": "",
-                        "legendFormat": "P99 - {{job}} - {{cache_type}}",
-                        "queryType": "randomWalk"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${datasource}"
-                      },
-                      "spec": {
-                        "exemplar": true,
-                        "expr": "histogram_quantile(0.95, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
-                        "interval": "",
-                        "legendFormat": "P95 - {{job}} - {{cache_type}}",
-                        "queryType": "randomWalk"
-                      }
-                    },
-                    "refId": "B",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${datasource}"
-                      },
-                      "spec": {
-                        "exemplar": true,
-                        "expr": "histogram_quantile(0.5, sum by(le, cache_type, job) (rate(sglang:eviction_duration_seconds_bucket{job=~\"$server\"}[$interval])))",
-                        "interval": "",
-                        "legendFormat": "P50 - {{job}} - {{cache_type}}",
-                        "queryType": "randomWalk"
-                      }
-                    },
-                    "refId": "C",
-                    "hidden": false
-                  }
-                },
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${datasource}"
-                      },
-                      "spec": {
-                        "exemplar": true,
-                        "expr": "sum by(cache_type, job) (rate(sglang:eviction_duration_seconds_sum{job=~\"$server\"}[$interval])) / sum by(cache_type, job) (rate(sglang:eviction_duration_seconds_count{job=~\"$server\"}[$interval]))",
-                        "interval": "",
-                        "legendFormat": "Avg - {{job}} - {{cache_type}}",
-                        "queryType": "randomWalk"
-                      }
-                    },
-                    "refId": "D",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "13.1.0",
-            "spec": {
-              "options": {
-                "alertThreshold": true,
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
-                },
-                "legend": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "displayMode": "table",
-                  "enableFacetedFilter": false,
-                  "overflow": "ellipsis",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "s",
-                  "min": 0,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 10,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 2,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  }
-                },
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
       "panel-27": {
         "kind": "Panel",
         "spec": {
@@ -2482,7 +2294,7 @@
                 "calculate": false,
                 "cellGap": 1,
                 "cellValues": {
-                  "unit": "s"
+                  "unit": "none"
                 },
                 "color": {
                   "exponent": 0.5,
@@ -2816,7 +2628,7 @@
                 "calculate": false,
                 "cellGap": 1,
                 "cellValues": {
-                  "unit": "s"
+                  "unit": "none"
                 },
                 "color": {
                   "exponent": 0.5,
@@ -3192,136 +3004,6 @@
                       },
                       {
                         "value": 80,
-                        "color": "red"
-                      }
-                    ]
-                  },
-                  "color": {
-                    "mode": "palette-classic"
-                  },
-                  "custom": {
-                    "axisBorderShow": false,
-                    "axisCenteredZero": false,
-                    "axisColorMode": "text",
-                    "axisLabel": "",
-                    "axisPlacement": "auto",
-                    "barAlignment": 0,
-                    "barWidthFactor": 0.6,
-                    "drawStyle": "line",
-                    "fillOpacity": 10,
-                    "gradientMode": "none",
-                    "hideFrom": {
-                      "legend": false,
-                      "tooltip": false,
-                      "viz": false
-                    },
-                    "insertNulls": false,
-                    "lineInterpolation": "linear",
-                    "lineWidth": 2,
-                    "pointSize": 5,
-                    "scaleDistribution": {
-                      "type": "linear"
-                    },
-                    "showPoints": "never",
-                    "showValues": false,
-                    "spanNulls": false,
-                    "stacking": {
-                      "group": "A",
-                      "mode": "none"
-                    },
-                    "thresholdsStyle": {
-                      "mode": "off"
-                    }
-                  }
-                },
-                "overrides": []
-              }
-            }
-          }
-        }
-      },
-      "panel-34": {
-        "kind": "Panel",
-        "spec": {
-          "id": 34,
-          "title": "SGLang: KV Cache Evicted Tokens",
-          "description": "Cumulative tokens evicted from the GPU KV cache to CPU over each $interval window (increase of evicted_tokens_total). Scales with the selected interval — use for relative trend, not absolute cross-interval comparison. Labeled by cache_type and job only (no model_name).",
-          "links": [],
-          "data": {
-            "kind": "QueryGroup",
-            "spec": {
-              "queries": [
-                {
-                  "kind": "PanelQuery",
-                  "spec": {
-                    "query": {
-                      "kind": "DataQuery",
-                      "group": "prometheus",
-                      "version": "v0",
-                      "datasource": {
-                        "name": "${datasource}"
-                      },
-                      "spec": {
-                        "exemplar": true,
-                        "expr": "sum by(cache_type, job) (increase(sglang:evicted_tokens_total{job=~\"$server\"}[$interval]))",
-                        "interval": "",
-                        "legendFormat": "Evicted in {{$interval}} - {{job}} - {{cache_type}}",
-                        "queryType": "randomWalk"
-                      }
-                    },
-                    "refId": "A",
-                    "hidden": false
-                  }
-                }
-              ],
-              "transformations": [],
-              "queryOptions": {}
-            }
-          },
-          "vizConfig": {
-            "kind": "VizConfig",
-            "group": "timeseries",
-            "version": "13.1.0",
-            "spec": {
-              "options": {
-                "alertThreshold": true,
-                "annotations": {
-                  "clustering": -1,
-                  "multiLane": false
-                },
-                "legend": {
-                  "calcs": [
-                    "lastNotNull"
-                  ],
-                  "displayMode": "table",
-                  "enableFacetedFilter": false,
-                  "overflow": "ellipsis",
-                  "placement": "bottom",
-                  "showLegend": true
-                },
-                "tooltip": {
-                  "hideZeros": false,
-                  "mode": "multi",
-                  "sort": "none"
-                }
-              },
-              "fieldConfig": {
-                "defaults": {
-                  "unit": "none",
-                  "min": 0,
-                  "thresholds": {
-                    "mode": "absolute",
-                    "steps": [
-                      {
-                        "value": 0,
-                        "color": "green"
-                      },
-                      {
-                        "value": 1000000,
-                        "color": "yellow"
-                      },
-                      {
-                        "value": 10000000,
                         "color": "red"
                       }
                     ]
@@ -4494,11 +4176,13 @@
                         "name": "${datasource}"
                       },
                       "spec": {
+                        "editorMode": "code",
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[$interval]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
-                        "queryType": "randomWalk"
+                        "legendFormat": "{{mode}}",
+                        "queryType": "randomWalk",
+                        "range": true
                       }
                     },
                     "refId": "A",
@@ -4516,11 +4200,13 @@
                         "name": "${datasource}"
                       },
                       "spec": {
+                        "editorMode": "code",
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[$interval]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
-                        "queryType": "randomWalk"
+                        "legendFormat": "{{mode}}",
+                        "queryType": "randomWalk",
+                        "range": true
                       }
                     },
                     "refId": "B",
@@ -4538,11 +4224,13 @@
                         "name": "${datasource}"
                       },
                       "spec": {
+                        "editorMode": "code",
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[$interval]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
-                        "queryType": "randomWalk"
+                        "legendFormat": "{{mode}}",
+                        "queryType": "randomWalk",
+                        "range": true
                       }
                     },
                     "refId": "C",
@@ -5367,7 +5055,33 @@
               "x": 0,
               "y": 0,
               "width": 12,
-              "height": 16,
+              "height": 6,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-40"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 12,
+              "y": 0,
+              "width": 12,
+              "height": 6,
+              "element": {
+                "kind": "ElementReference",
+                "name": "panel-39"
+              }
+            }
+          },
+          {
+            "kind": "GridLayoutItem",
+            "spec": {
+              "x": 0,
+              "y": 8,
+              "width": 12,
+              "height": 12,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-2"
@@ -5378,9 +5092,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 0,
+              "y": 8,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-31"
@@ -5391,9 +5105,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 8,
+              "y": 16,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-7"
@@ -5404,9 +5118,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 16,
+              "y": 24,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-38"
@@ -5417,9 +5131,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 16,
+              "y": 24,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-35"
@@ -5430,9 +5144,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 24,
+              "y": 32,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-6"
@@ -5443,9 +5157,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 8,
-              "y": 24,
+              "y": 32,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-36"
@@ -5456,9 +5170,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 16,
-              "y": 24,
+              "y": 32,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-37"
@@ -5469,9 +5183,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 32,
+              "y": 40,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-23"
@@ -5482,9 +5196,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 32,
+              "y": 40,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-24"
@@ -5495,9 +5209,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 40,
+              "y": 48,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-29"
@@ -5508,9 +5222,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 40,
+              "y": 48,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-30"
@@ -5521,9 +5235,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 48,
+              "y": 56,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-8"
@@ -5534,9 +5248,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 12,
-              "y": 48,
+              "y": 56,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-19"
@@ -5547,9 +5261,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 0,
-              "y": 56,
+              "y": 64,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-11"
@@ -5560,9 +5274,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 8,
-              "y": 56,
+              "y": 64,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-17"
@@ -5573,22 +5287,9 @@
             "kind": "GridLayoutItem",
             "spec": {
               "x": 16,
-              "y": 56,
-              "width": 8,
-              "height": 8,
-              "element": {
-                "kind": "ElementReference",
-                "name": "panel-32"
-              }
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "x": 0,
               "y": 64,
               "width": 8,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-25"
@@ -5598,36 +5299,10 @@
           {
             "kind": "GridLayoutItem",
             "spec": {
-              "x": 8,
-              "y": 64,
-              "width": 8,
-              "height": 8,
-              "element": {
-                "kind": "ElementReference",
-                "name": "panel-34"
-              }
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "x": 16,
-              "y": 64,
-              "width": 8,
-              "height": 8,
-              "element": {
-                "kind": "ElementReference",
-                "name": "panel-26"
-              }
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
               "x": 0,
               "y": 72,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-21"
@@ -5640,7 +5315,7 @@
               "x": 12,
               "y": 72,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-22"
@@ -5653,7 +5328,7 @@
               "x": 0,
               "y": 80,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-27"
@@ -5666,7 +5341,7 @@
               "x": 12,
               "y": 80,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-28"
@@ -5679,7 +5354,7 @@
               "x": 0,
               "y": 88,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-13"
@@ -5692,7 +5367,7 @@
               "x": 12,
               "y": 88,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-14"
@@ -5705,7 +5380,7 @@
               "x": 0,
               "y": 96,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-3"
@@ -5718,7 +5393,7 @@
               "x": 12,
               "y": 96,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
                 "name": "panel-4"
@@ -5731,23 +5406,10 @@
               "x": 0,
               "y": 104,
               "width": 12,
-              "height": 8,
+              "height": 6,
               "element": {
                 "kind": "ElementReference",
-                "name": "panel-39"
-              }
-            }
-          },
-          {
-            "kind": "GridLayoutItem",
-            "spec": {
-              "x": 12,
-              "y": 104,
-              "width": 12,
-              "height": 8,
-              "element": {
-                "kind": "ElementReference",
-                "name": "panel-40"
+                "name": "panel-32"
               }
             }
           }
