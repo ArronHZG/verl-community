@@ -5,8 +5,8 @@
     "name": "ad5s2k8",
     "namespace": "default",
     "uid": "49c2435f-b213-468b-941c-e906c3336396",
-    "resourceVersion": "1783336670342990",
-    "generation": 50,
+    "resourceVersion": "1783338163924992",
+    "generation": 56,
     "creationTimestamp": "2026-07-03T10:36:20Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "954166231703552"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.1.0 (b309c9bb3b)",
       "grafana.app/updatedBy": "user:bfqss7budum0wb",
-      "grafana.app/updatedTimestamp": "2026-07-06T11:17:50Z"
+      "grafana.app/updatedTimestamp": "2026-07-06T11:42:43Z"
     }
   },
   "spec": {
@@ -120,6 +120,28 @@
                     "refId": "C",
                     "hidden": false
                   }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sglang:kv_available_tokens{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"}",
+                        "interval": "",
+                        "legendFormat": "KV Available - {{job}} - {{dp_rank}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "D",
+                    "hidden": false
+                  }
                 }
               ],
               "transformations": [],
@@ -161,11 +183,15 @@
                   "unit": "none",
                   "min": 0,
                   "thresholds": {
-                    "mode": "absolute",
+                    "mode": "percentage",
                     "steps": [
                       {
                         "value": 0,
                         "color": "green"
+                      },
+                      {
+                        "value": 60,
+                        "color": "orange"
                       },
                       {
                         "value": 80,
@@ -196,7 +222,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-13": {
@@ -388,7 +415,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-14": {
@@ -605,7 +633,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-17": {
@@ -752,7 +781,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-19": {
@@ -900,7 +930,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-2": {
@@ -1119,7 +1150,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-21": {
@@ -1307,7 +1339,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-22": {
@@ -1495,7 +1528,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-23": {
@@ -1691,7 +1725,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-24": {
@@ -1887,7 +1922,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-25": {
@@ -2017,7 +2053,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-27": {
@@ -2042,6 +2079,7 @@
                         "name": "${datasource}"
                       },
                       "spec": {
+                        "editorMode": "builder",
                         "expr": "sum by(le, model_name, job) (increase(sglang:prompt_tokens_histogram_bucket{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
                         "format": "heatmap",
                         "fullMetaSearch": false,
@@ -2127,7 +2165,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-28": {
@@ -2239,7 +2278,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-29": {
@@ -2351,7 +2391,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-3": {
@@ -2575,7 +2616,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-30": {
@@ -2687,7 +2729,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-31": {
@@ -2906,7 +2949,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-32": {
@@ -3055,7 +3099,8 @@
                 "overrides": []
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-35": {
@@ -3246,11 +3291,36 @@
                         }
                       }
                     ]
+                  },
+                  {
+                    "__systemRef": "hideSeriesFrom",
+                    "matcher": {
+                      "id": "byNames",
+                      "options": {
+                        "mode": "exclude",
+                        "names": [
+                          "E2E P99 - /user/yanhui/ckpts/minicpm5/39a5b/job_510790.step_13000"
+                        ],
+                        "prefix": "All except:",
+                        "readOnly": true
+                      }
+                    },
+                    "properties": [
+                      {
+                        "id": "custom.hideFrom",
+                        "value": {
+                          "legend": false,
+                          "tooltip": true,
+                          "viz": true
+                        }
+                      }
+                    ]
                   }
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-36": {
@@ -3445,7 +3515,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-37": {
@@ -3640,7 +3711,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-38": {
@@ -3793,7 +3865,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-39": {
@@ -3821,7 +3894,7 @@
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[1h]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
                       }
                     },
@@ -3843,7 +3916,7 @@
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[1h]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
                       }
                     },
@@ -3865,7 +3938,7 @@
                         "exemplar": true,
                         "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[1h]))",
                         "interval": "",
-                        "legendFormat": "{{mode}} - {{model_name}}",
+                        "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
                       }
                     },
@@ -3940,7 +4013,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-4": {
@@ -4163,7 +4237,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-40": {
@@ -4327,7 +4402,370 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
+        }
+      },
+      "panel-41": {
+        "kind": "Panel",
+        "spec": {
+          "id": 41,
+          "title": "SGLang: KV Cache Token Usage",
+          "description": "KV cache pool breakdown. Stacked: actively used (kv_used_tokens) + evictable/radix-cached (kv_evictable_tokens) = total used. Overlaid as a dashed ceiling: max_total_num_tokens (pool capacity). The gap between the stack top and the ceiling is the free capacity (kv_available_tokens).",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sglang:kv_used_tokens{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"}",
+                        "interval": "",
+                        "legendFormat": "KV Active - {{job}} - {{dp_rank}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sglang:kv_evictable_tokens{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"}",
+                        "interval": "",
+                        "legendFormat": "KV Evictable - {{job}} - {{dp_rank}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "max by(job, dp_rank, model_name) (sglang:max_total_num_tokens{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"})",
+                        "interval": "",
+                        "legendFormat": "Max Capacity - {{job}} - {{dp_rank}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "C",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "exemplar": true,
+                        "expr": "sglang:kv_available_tokens{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"}",
+                        "interval": "",
+                        "legendFormat": "KV Available - {{job}} - {{dp_rank}} - {{model_name}}",
+                        "queryType": "randomWalk"
+                      }
+                    },
+                    "refId": "D",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "timeseries",
+            "version": "13.1.0",
+            "spec": {
+              "options": {
+                "alertThreshold": true,
+                "annotations": {
+                  "clustering": -1,
+                  "multiLane": false
+                },
+                "legend": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "displayMode": "table",
+                  "enableFacetedFilter": false,
+                  "overflow": "ellipsis",
+                  "placement": "bottom",
+                  "showLegend": true
+                },
+                "tooltip": {
+                  "hideZeros": false,
+                  "mode": "multi",
+                  "sort": "none"
+                }
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "tokens/s",
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "absolute",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 1000,
+                        "color": "yellow"
+                      },
+                      {
+                        "value": 10000,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "palette-classic"
+                  },
+                  "custom": {
+                    "axisBorderShow": false,
+                    "axisCenteredZero": false,
+                    "axisColorMode": "text",
+                    "axisLabel": "",
+                    "axisPlacement": "auto",
+                    "barAlignment": 0,
+                    "barWidthFactor": 0.6,
+                    "drawStyle": "line",
+                    "fillOpacity": 10,
+                    "gradientMode": "none",
+                    "hideFrom": {
+                      "legend": false,
+                      "tooltip": false,
+                      "viz": false
+                    },
+                    "insertNulls": false,
+                    "lineInterpolation": "linear",
+                    "lineWidth": 2,
+                    "pointSize": 5,
+                    "scaleDistribution": {
+                      "type": "linear"
+                    },
+                    "showPoints": "never",
+                    "showValues": false,
+                    "spanNulls": false,
+                    "stacking": {
+                      "group": "A",
+                      "mode": "none"
+                    },
+                    "thresholdsStyle": {
+                      "mode": "off"
+                    }
+                  }
+                },
+                "overrides": []
+              }
+            }
+          },
+          "transparent": true
+        }
+      },
+      "panel-42": {
+        "kind": "Panel",
+        "spec": {
+          "id": 42,
+          "title": "SGLang: Realtime Request Rate",
+          "description": "Request activity. In-flight: number of requests currently being processed (num_running_reqs, summed across dp_rank). Finished/s: rate of completed requests (num_requests_total, summed across dp_rank). Aborted/s: rate of aborted requests (num_aborted_requests_total, summed across dp_rank). Window = $interval.",
+          "links": [],
+          "data": {
+            "kind": "QueryGroup",
+            "spec": {
+              "queries": [
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": true,
+                        "expr": "sum by(model_name) (sglang:num_running_reqs{model_name=~\"$model_name\", job=~\"$server\", dp_rank=~\"$dp_rank\"})",
+                        "interval": "",
+                        "legendFormat": "In-flight - {{model_name}}",
+                        "queryType": "randomWalk",
+                        "range": true
+                      }
+                    },
+                    "refId": "A",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": true,
+                        "expr": "sum by(model_name) (rate(sglang:num_requests_total{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+                        "interval": "",
+                        "legendFormat": "Finished/s - {{model_name}}",
+                        "queryType": "randomWalk",
+                        "range": true
+                      }
+                    },
+                    "refId": "B",
+                    "hidden": false
+                  }
+                },
+                {
+                  "kind": "PanelQuery",
+                  "spec": {
+                    "query": {
+                      "kind": "DataQuery",
+                      "group": "prometheus",
+                      "version": "v0",
+                      "datasource": {
+                        "name": "${datasource}"
+                      },
+                      "spec": {
+                        "editorMode": "code",
+                        "exemplar": true,
+                        "expr": "sum by(model_name) (rate(sglang:num_aborted_requests_total{model_name=~\"$model_name\", job=~\"$server\"}[$interval]))",
+                        "interval": "",
+                        "legendFormat": "Aborted/s - {{model_name}}",
+                        "queryType": "randomWalk",
+                        "range": true
+                      }
+                    },
+                    "refId": "C",
+                    "hidden": false
+                  }
+                }
+              ],
+              "transformations": [],
+              "queryOptions": {}
+            }
+          },
+          "vizConfig": {
+            "kind": "VizConfig",
+            "group": "gauge",
+            "version": "13.1.0",
+            "spec": {
+              "options": {
+                "barShape": "flat",
+                "barWidthFactor": 0.54,
+                "effects": {
+                  "barGlow": false,
+                  "centerGlow": false,
+                  "gradient": false
+                },
+                "endpointMarker": "point",
+                "minVizHeight": 75,
+                "minVizWidth": 75,
+                "orientation": "auto",
+                "reduceOptions": {
+                  "calcs": [
+                    "lastNotNull"
+                  ],
+                  "fields": "",
+                  "values": false
+                },
+                "segmentCount": 63,
+                "segmentSpacing": 0.3,
+                "shape": "gauge",
+                "showThresholdLabels": false,
+                "showThresholdMarkers": true,
+                "sizing": "auto",
+                "sparkline": true,
+                "textMode": "auto"
+              },
+              "fieldConfig": {
+                "defaults": {
+                  "unit": "reqs/s",
+                  "min": 0,
+                  "thresholds": {
+                    "mode": "percentage",
+                    "steps": [
+                      {
+                        "value": 0,
+                        "color": "green"
+                      },
+                      {
+                        "value": 60,
+                        "color": "#EAB839"
+                      },
+                      {
+                        "value": 80,
+                        "color": "red"
+                      }
+                    ]
+                  },
+                  "color": {
+                    "mode": "thresholds"
+                  }
+                },
+                "overrides": [
+                  {
+                    "matcher": {
+                      "id": "byValue",
+                      "options": {
+                        "op": "gte",
+                        "reducer": "allIsZero",
+                        "value": 0
+                      }
+                    },
+                    "properties": []
+                  }
+                ]
+              }
+            }
+          },
+          "transparent": true
         }
       },
       "panel-6": {
@@ -4590,7 +5028,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-7": {
@@ -4829,7 +5268,8 @@
                 ]
               }
             }
-          }
+          },
+          "transparent": true
         }
       },
       "panel-8": {
@@ -5283,7 +5723,7 @@
                       "spec": {
                         "x": 0,
                         "y": 50,
-                        "width": 8,
+                        "width": 12,
                         "height": 6,
                         "element": {
                           "kind": "ElementReference",
@@ -5294,9 +5734,22 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 8,
+                        "x": 12,
                         "y": 50,
-                        "width": 8,
+                        "width": 12,
+                        "height": 6,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-41"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 56,
+                        "width": 12,
                         "height": 6,
                         "element": {
                           "kind": "ElementReference",
@@ -5307,9 +5760,9 @@
                     {
                       "kind": "GridLayoutItem",
                       "spec": {
-                        "x": 16,
-                        "y": 50,
-                        "width": 8,
+                        "x": 12,
+                        "y": 56,
+                        "width": 12,
                         "height": 6,
                         "element": {
                           "kind": "ElementReference",
@@ -5321,7 +5774,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": 56,
+                        "y": 62,
                         "width": 12,
                         "height": 6,
                         "element": {
@@ -5334,7 +5787,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 12,
-                        "y": 56,
+                        "y": 62,
                         "width": 12,
                         "height": 6,
                         "element": {
@@ -5347,7 +5800,7 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 0,
-                        "y": 62,
+                        "y": 68,
                         "width": 12,
                         "height": 8,
                         "element": {
@@ -5360,12 +5813,25 @@
                       "kind": "GridLayoutItem",
                       "spec": {
                         "x": 12,
-                        "y": 62,
+                        "y": 68,
                         "width": 12,
                         "height": 8,
                         "element": {
                           "kind": "ElementReference",
                           "name": "panel-28"
+                        }
+                      }
+                    },
+                    {
+                      "kind": "GridLayoutItem",
+                      "spec": {
+                        "x": 0,
+                        "y": 76,
+                        "width": 12,
+                        "height": 6,
+                        "element": {
+                          "kind": "ElementReference",
+                          "name": "panel-42"
                         }
                       }
                     }
