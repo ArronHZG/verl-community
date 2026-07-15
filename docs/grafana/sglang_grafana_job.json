@@ -3292,7 +3292,7 @@
         "spec": {
           "id": 37,
           "title": "SGLang: Decode Latency",
-          "description": "Decode per-step latency proxied by inter-token latency percentiles (inter_token_latency_seconds). This metric carries only model_name (no dp_rank/job label).",
+          "description": "Decode per-step latency proxied by inter-token latency percentiles (inter_token_latency_seconds). This metric carries only model_name (no dp_rank).",
           "links": [],
           "data": {
             "kind": "QueryGroup",
@@ -3507,7 +3507,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P99",
                         "queryType": "randomWalk",
@@ -3531,7 +3531,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P95",
                         "queryType": "randomWalk",
@@ -3555,7 +3555,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P50",
                         "queryType": "randomWalk",
@@ -3660,7 +3660,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -3682,7 +3682,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -3704,7 +3704,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -4035,7 +4035,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[$interval]))",
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk",
@@ -4059,7 +4059,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[$interval]))",
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk",
@@ -4083,7 +4083,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[$interval]))",
+                        "expr": "sum by(mode, model_name) (rate(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk",
@@ -4539,7 +4539,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_compute\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -4561,7 +4561,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"prefill_cache\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -4583,7 +4583,7 @@
                       },
                       "spec": {
                         "exemplar": true,
-                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\"}[1h]))",
+                        "expr": "sum by(mode, model_name) (increase(sglang:realtime_tokens_total{mode=\"decode\", model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[1h]))",
                         "interval": "",
                         "legendFormat": "{{mode}}",
                         "queryType": "randomWalk"
@@ -4690,7 +4690,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.99, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P99",
                         "queryType": "randomWalk",
@@ -4714,7 +4714,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.95, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P95",
                         "queryType": "randomWalk",
@@ -4738,7 +4738,7 @@
                       "spec": {
                         "editorMode": "code",
                         "exemplar": true,
-                        "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\"}[$interval])))",
+                        "expr": "histogram_quantile(0.5, sum by(le, model_name) (rate(sglang:e2e_request_latency_seconds_bucket{model_name=~\"$model_name\", server=~\"$server\", exported_job=~\"$exported_job\"}[$interval])))",
                         "interval": "",
                         "legendFormat": "E2E P50",
                         "queryType": "randomWalk",
@@ -6092,12 +6092,12 @@
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "dp_rank",
+          "name": "exported_job",
           "current": {
             "text": "All",
             "value": "$__all"
           },
-          "label": "DP Rank",
+          "label": "Exported Job",
           "hide": "dontHide",
           "refresh": "onDashboardLoad",
           "skipUrlSync": false,
@@ -6109,14 +6109,14 @@
               "name": "${datasource}"
             },
             "spec": {
-              "query": "label_values(sglang:gen_throughput{exported_job=~\"$exported_job\"}, dp_rank)",
+              "query": "label_values(sglang:gen_throughput, exported_job)",
               "refId": "StandardVariableQuery"
             }
           },
           "regex": "",
           "regexApplyTo": "value",
           "sort": "disabled",
-          "definition": "label_values(sglang:gen_throughput{exported_job=~\"$exported_job\"}, dp_rank)",
+          "definition": "label_values(sglang:gen_throughput, exported_job)",
           "options": [],
           "multi": false,
           "includeAll": true,
@@ -6197,12 +6197,12 @@
       {
         "kind": "QueryVariable",
         "spec": {
-          "name": "exported_job",
+          "name": "dp_rank",
           "current": {
             "text": "All",
             "value": "$__all"
           },
-          "label": "Exported Job",
+          "label": "DP Rank",
           "hide": "dontHide",
           "refresh": "onDashboardLoad",
           "skipUrlSync": false,
@@ -6214,14 +6214,14 @@
               "name": "${datasource}"
             },
             "spec": {
-              "query": "label_values(sglang:gen_throughput, exported_job)",
+              "query": "label_values(sglang:gen_throughput{exported_job=~\"$exported_job\"}, dp_rank)",
               "refId": "StandardVariableQuery"
             }
           },
           "regex": "",
           "regexApplyTo": "value",
           "sort": "disabled",
-          "definition": "label_values(sglang:gen_throughput, exported_job)",
+          "definition": "label_values(sglang:gen_throughput{exported_job=~\"$exported_job\"}, dp_rank)",
           "options": [],
           "multi": false,
           "includeAll": true,
