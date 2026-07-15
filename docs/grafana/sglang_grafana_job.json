@@ -5,8 +5,8 @@
     "name": "ad5s2k8",
     "namespace": "default",
     "uid": "49c2435f-b213-468b-941c-e906c3336396",
-    "resourceVersion": "1783948226580011",
-    "generation": 77,
+    "resourceVersion": "1784107184153987",
+    "generation": 96,
     "creationTimestamp": "2026-07-03T10:36:20Z",
     "labels": {
       "grafana.app/deprecatedInternalID": "954166231703552"
@@ -16,7 +16,7 @@
       "grafana.app/folder": "",
       "grafana.app/saved-from-ui": "Grafana v13.1.0 (b309c9bb3b)",
       "grafana.app/updatedBy": "user:bfqss7budum0wb",
-      "grafana.app/updatedTimestamp": "2026-07-13T13:10:26Z"
+      "grafana.app/updatedTimestamp": "2026-07-15T09:19:44Z"
     }
   },
   "spec": {
@@ -354,7 +354,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -547,7 +547,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -698,7 +698,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -848,10 +848,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -975,8 +975,9 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
-                  "overflow": "ellipsis",
+                  "enableFacetedFilter": true,
+                  "facetedFilterPinned": false,
+                  "overflow": "wrap",
                   "placement": "bottom",
                   "showLegend": true
                 },
@@ -1261,10 +1262,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -1450,10 +1451,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -1639,10 +1640,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -1836,10 +1837,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -1967,10 +1968,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -2437,7 +2438,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -2775,10 +2776,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -3017,7 +3018,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -3189,10 +3190,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -3385,10 +3386,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -3841,7 +3842,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -4274,7 +4275,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -4767,7 +4768,7 @@
                 "legend": {
                   "calcs": [],
                   "displayMode": "list",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
@@ -4982,10 +4983,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -5222,10 +5223,10 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
-                  "showLegend": true
+                  "showLegend": false
                 },
                 "tooltip": {
                   "hideZeros": false,
@@ -5442,7 +5443,7 @@
                     "lastNotNull"
                   ],
                   "displayMode": "table",
-                  "enableFacetedFilter": false,
+                  "enableFacetedFilter": true,
                   "overflow": "ellipsis",
                   "placement": "bottom",
                   "showLegend": true
